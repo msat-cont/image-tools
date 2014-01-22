@@ -1,0 +1,8 @@
+(define (simple-copy-move infilename outfilename blur threshold)
+  (let* ((image (car (gimp-file-load RUN-NONINTERACTIVE infilename infilename)))
+         (drawable (car (gimp-image-get-active-layer image))))
+    (elsamuko-copy-move RUN-NONINTERACTIVE image drawable blur threshold)
+    (gimp-image-flatten image)
+    (set! drawable (car (gimp-image-get-active-layer image)))
+    (gimp-file-save RUN-NONINTERACTIVE image drawable outfilename outfilename)
+    (gimp-image-delete image)))
